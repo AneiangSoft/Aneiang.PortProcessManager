@@ -1,0 +1,46 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="PortProcessManager" 
+           Manufacturer="Peson" 
+           Version="1.0.0" 
+           UpgradeCode="d7f8e9a0-b1c2-4d3e-af51-6b7c8d9e0f1a" 
+           Language="2052" 
+           InstallerVersion="500">
+    
+    <MajorUpgrade DowngradeErrorMessage="已安装更高版本的 [ProductName]。" />
+    <MediaTemplate EmbedCab="yes" />
+
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="PortProcessManager" />
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="ApplicationProgramsFolder" Name="PortProcessManager"/>
+    </StandardDirectory>
+
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="MainExecutable" Guid="a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d">
+        <File Id="PortProcessManagerEXE" 
+              Source="bin\Release\net8.0-windows\win-x64\publish\PortProcessManager.exe" 
+              KeyPath="yes" />
+        
+        <!-- 开始菜单快捷方式 -->
+        <Shortcut Id="ApplicationStartMenuShortcut" 
+                  Directory="ApplicationProgramsFolder" 
+                  Name="PortProcessManager" 
+                  Description="端口占用进程管理工具" 
+                  WorkingDirectory="INSTALLFOLDER" 
+                  Advertise="yes" />
+      </Component>
+    </ComponentGroup>
+
+    <Component Id="CleanupShortcut" Directory="ApplicationProgramsFolder" Guid="b2c3d4e5-f6a7-4b6c-9d8e-1f2a3b4c5d6e">
+      <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+      <RegistryValue Root="HKCU" Key="Software\Peson\PortProcessManager" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+    </Component>
+
+    <Feature Id="Main">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="CleanupShortcut" />
+    </Feature>
+  </Package>
+</Wix>
