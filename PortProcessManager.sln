@@ -2,8 +2,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
 VisualStudioVersion = 18.2.11430.68
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PortProcessManager.Setup", "PortProcessManager.Setup\PortProcessManager.Setup.vdproj", "{04756E0E-0065-F7D4-04CB-A7E7D3A2B931}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortProcessManager", "PortProcessManager\PortProcessManager.csproj", "{488B7D17-E6FB-6828-8752-D684FAF29375}"
 EndProject
 Global
@@ -14,14 +12,6 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{04756E0E-0065-F7D4-04CB-A7E7D3A2B931}.Debug|Any CPU.ActiveCfg = Debug
-		{04756E0E-0065-F7D4-04CB-A7E7D3A2B931}.Debug|Any CPU.Build.0 = Debug
-		{04756E0E-0065-F7D4-04CB-A7E7D3A2B931}.Debug|x64.ActiveCfg = Debug
-		{04756E0E-0065-F7D4-04CB-A7E7D3A2B931}.Debug|x64.Build.0 = Debug
-		{04756E0E-0065-F7D4-04CB-A7E7D3A2B931}.Release|Any CPU.ActiveCfg = Release
-		{04756E0E-0065-F7D4-04CB-A7E7D3A2B931}.Release|Any CPU.Build.0 = Release
-		{04756E0E-0065-F7D4-04CB-A7E7D3A2B931}.Release|x64.ActiveCfg = Release
-		{04756E0E-0065-F7D4-04CB-A7E7D3A2B931}.Release|x64.Build.0 = Release
 		{488B7D17-E6FB-6828-8752-D684FAF29375}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{488B7D17-E6FB-6828-8752-D684FAF29375}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{488B7D17-E6FB-6828-8752-D684FAF29375}.Debug|x64.ActiveCfg = Debug|x64
