@@ -7,7 +7,8 @@
         xmlns:viewModels="clr-namespace:PortProcessManager.ViewModels"
         xmlns:converters="clr-namespace:PortProcessManager.Converters"
         mc:Ignorable="d"
-        Title="Windows 端口管理器" Height="720" Width="1060"
+        Title="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[WindowTitle]}" Height="720" Width="1060"
+        xmlns:localLocalization="clr-namespace:PortProcessManager.Localization"
         Background="White"
         Icon="/icon.ico">
 
@@ -31,12 +32,12 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="端口进程管理器" FontSize="18" FontWeight="SemiBold" Foreground="#1A1A1A" VerticalAlignment="Center"/>
-                    <TextBlock Text="(管理员)" Margin="8,0,0,0" Foreground="#666" VerticalAlignment="Center" FontSize="12"/>
+                    <TextBlock Text="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[AppName]}" FontSize="18" FontWeight="SemiBold" Foreground="#1A1A1A" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[AdminLabel]}" Margin="8,0,0,0" Foreground="#666" VerticalAlignment="Center" FontSize="12"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                    <CheckBox Content="按进程分组" 
+                    <CheckBox Content="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[GroupByProcess]}" 
                               IsChecked="{Binding IsGrouped}" 
                               VerticalAlignment="Center" 
                               Margin="0,0,16,0"/>
@@ -47,16 +48,26 @@
                             Padding="8,0"
                             Height="24"
                             FontSize="11"/>
-                    <CheckBox Content="自动刷新 (5s)" 
+                    <CheckBox Content="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[AutoRefresh]}" 
                               IsChecked="{Binding IsAutoRefreshEnabled}" 
                               VerticalAlignment="Center" 
                               Margin="0,0,16,0"/>
-                    <TextBox Width="260" Height="32" Margin="0,0,12,0"
+                    <TextBox Width="200" Height="32" Margin="0,0,12,0"
                              VerticalContentAlignment="Center"
+                             Tag="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[SearchPlaceholder]}"
                              Text="{Binding Query, UpdateSourceTrigger=PropertyChanged}" />
-                    <Button Height="32" MinWidth="96" Padding="14,0"
+                    
+                    <ComboBox Width="90" Height="32" Margin="0,0,12,0"
+                              VerticalContentAlignment="Center"
+                              SelectedValuePath="Tag"
+                              SelectedValue="{Binding SelectedLanguage}">
+                        <ComboBoxItem Content="中文" Tag="zh-CN"/>
+                        <ComboBoxItem Content="English" Tag="en-US"/>
+                    </ComboBox>
+
+                    <Button Height="32" MinWidth="80" Padding="14,0"
                             Command="{Binding RefreshCommand}"
-                            Content="刷新"/>
+                            Content="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[Refresh]}"/>
                 </StackPanel>
             </Grid>
         </Border>
@@ -73,13 +84,13 @@
                         <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
                             <!-- 统计信息移至此处 -->
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="总连接: " Foreground="#999"/>
+                                <TextBlock Text="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[TotalConnections]}" Foreground="#999"/>
                                 <TextBlock Text="{Binding TotalConnections}" FontWeight="Bold" Foreground="#333"/>
-                                <TextBlock Text="  TCP: " Margin="12,0,0,0" Foreground="#999"/>
+                                <TextBlock Text="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[TcpLabel]}" Margin="12,0,0,0" Foreground="#999"/>
                                 <TextBlock Text="{Binding TcpCount}" FontWeight="Bold" Foreground="#333"/>
-                                <TextBlock Text="  UDP: " Margin="12,0,0,0" Foreground="#999"/>
+                                <TextBlock Text="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[UdpLabel]}" Margin="12,0,0,0" Foreground="#999"/>
                                 <TextBlock Text="{Binding UdpCount}" FontWeight="Bold" Foreground="#333"/>
-                                <TextBlock Text="  进程: " Margin="12,0,0,0" Foreground="#999"/>
+                                <TextBlock Text="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[ProcessLabel]}" Margin="12,0,0,0" Foreground="#999"/>
                                 <TextBlock Text="{Binding ProcessCount}" FontWeight="Bold" Foreground="#333"/>
                             </StackPanel>
                         </StackPanel>
@@ -108,7 +119,7 @@
                                                             <Border Background="Transparent">
                                                                 <Border.ContextMenu>
                                                                     <ContextMenu>
-                                                                        <MenuItem Header="结束该组进程" 
+                                                                        <MenuItem Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[KillGroupProcess]}" 
                                                                                   Command="{Binding Data.KillGroupCommand, Source={StaticResource DataContextProxy}}" 
                                                                                   CommandParameter="{Binding}" />
                                                                     </ContextMenu>
@@ -130,29 +141,29 @@
                         </DataGrid.GroupStyle>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="结束选中进程" 
+                                <MenuItem Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[KillSelectedProcess]}" 
                                           Command="{Binding KillSelectedItemsCommand}" 
                                           CommandParameter="{Binding SelectedItems, RelativeSource={RelativeSource Self}}"
                                           FontWeight="Bold" />
-                                <MenuItem Header="打开文件位置" Command="{Binding OpenFileLocationCommand}" />
+                                <MenuItem Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[OpenFileLocation]}" Command="{Binding OpenFileLocationCommand}" />
                                 <Separator />
-                                <MenuItem Header="复制 PID" Command="{Binding CopyInfoCommand}" CommandParameter="PID" />
-                                <MenuItem Header="复制端口" Command="{Binding CopyInfoCommand}" CommandParameter="Port" />
-                                <MenuItem Header="复制完整路径" Command="{Binding CopyInfoCommand}" CommandParameter="Path" />
-                                <MenuItem Header="批量复制选中行" 
+                                <MenuItem Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[CopyPid]}" Command="{Binding CopyInfoCommand}" CommandParameter="PID" />
+                                <MenuItem Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[CopyPort]}" Command="{Binding CopyInfoCommand}" CommandParameter="Port" />
+                                <MenuItem Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[CopyPath]}" Command="{Binding CopyInfoCommand}" CommandParameter="Path" />
+                                <MenuItem Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[CopySelectedRows]}" 
                                           Command="{Binding CopySelectedItemsCommand}" 
                                           CommandParameter="{Binding SelectedItems, RelativeSource={RelativeSource Self}}" />
                                 <Separator />
-                                <MenuItem Header="刷新" Command="{Binding RefreshCommand}" />
+                                <MenuItem Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[Refresh]}" Command="{Binding RefreshCommand}" />
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="协议" Binding="{Binding Protocol}" Width="60" />
-                            <DataGridTextColumn Header="本地地址" Binding="{Binding LocalAddress}" Width="*" />
-                            <DataGridTextColumn Header="本地端口" Binding="{Binding LocalPort}" Width="80" />
-                            <DataGridTextColumn Header="远程地址" Binding="{Binding RemoteAddress}" Width="*" />
-                            <DataGridTextColumn Header="远程端口" Binding="{Binding RemotePort}" Width="80" />
-                            <DataGridTextColumn Header="状态" Binding="{Binding State}" Width="100">
+                            <DataGridTextColumn Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[ColumnProtocol]}" Binding="{Binding Protocol}" Width="60" />
+                            <DataGridTextColumn Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[ColumnLocalAddress]}" Binding="{Binding LocalAddress}" Width="*" />
+                            <DataGridTextColumn Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[ColumnLocalPort]}" Binding="{Binding LocalPort}" Width="80" />
+                            <DataGridTextColumn Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[ColumnRemoteAddress]}" Binding="{Binding RemoteAddress}" Width="*" />
+                            <DataGridTextColumn Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[ColumnRemotePort]}" Binding="{Binding RemotePort}" Width="80" />
+                            <DataGridTextColumn Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[ColumnState]}" Binding="{Binding State}" Width="100">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="Padding" Value="4,2"/>
@@ -169,8 +180,8 @@
                                     </Style>
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Header="PID" Binding="{Binding Pid}" Width="70" />
-                            <DataGridTemplateColumn Header="进程" Width="140" SortMemberPath="ProcessName">
+                            <DataGridTextColumn Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[ColumnPid]}" Binding="{Binding Pid}" Width="70" />
+                            <DataGridTemplateColumn Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[ColumnProcess]}" Width="140" SortMemberPath="ProcessName">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -182,8 +193,8 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="用户" Binding="{Binding Owner}" Width="100" />
-                            <DataGridTextColumn Header="路径" Binding="{Binding ProcessPath}" Width="1.5*" />
+                            <DataGridTextColumn Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[ColumnUser]}" Binding="{Binding Owner}" Width="100" />
+                            <DataGridTextColumn Header="{Binding Source={x:Static localLocalization:LocalizationManager.Instance}, Path=[ColumnPath]}" Binding="{Binding ProcessPath}" Width="1.5*" />
                         </DataGrid.Columns>
                     </DataGrid>
 

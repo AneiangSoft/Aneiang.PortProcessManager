@@ -59,6 +59,19 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private bool areGroupsExpanded = false;
 
+    public string SelectedLanguage
+    {
+        get => Localization.LocalizationManager.Instance.CurrentUICulture.Name.StartsWith("en") ? "en-US" : "zh-CN";
+        set
+        {
+            if (value != null)
+            {
+                Localization.LanguageManager.ApplyAndPersist(value);
+                OnPropertyChanged(nameof(SelectedLanguage));
+            }
+        }
+    }
+
     [ObservableProperty]
     private List<PortRow> selectedItemsSnapshot = new();
 
