@@ -57,19 +57,6 @@
   - 调用 `advapi32.dll` 与 `shell32.dll` 获取进程令牌用户信息及系统图标映射。
 - **依赖注入**：内置简单的服务层设计，分离 UI 逻辑与系统数据源。
 
-## 🚀 快速开始
-
-### 方式一：直接运行（发布版）
-前往 [Releases](#) 下载最新的 `PortProcessManager.Setup.msi` 进行安装。
-
-### 方式二：从源码编译
-1. 克隆仓库：
-   ```bash
-   git clone https://github.com/YourUsername/PortProcessManager.git
-   ```
-2. 使用 Visual Studio 2022 打开 `PortProcessManager.sln`。
-3. 还原 NuGet 包并编译运行。
-
 ## ⚠️ 注意事项
 
 1. **权限要求**：
