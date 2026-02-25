@@ -5,6 +5,7 @@
   <br>
   <strong>一个高效、直观的 Windows 端口与进程关联管理工具</strong>
   <br>
+  <a href="README.en.md">English</a> •
   <a href="#主要功能">主要功能</a> •
   <a href="#运行环境">运行环境</a> •
   <a href="#快速开始">快速开始</a> •
