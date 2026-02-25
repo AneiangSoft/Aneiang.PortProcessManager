@@ -57,19 +57,6 @@ This project demonstrates best practices in modern WPF development:
   - Calls `advapi32.dll` and `shell32.dll` to get process token user information and system icon mappings.
 - **Dependency Injection**: Built-in simple service layer design, separating UI logic from system data sources.
 
-## 🚀 Quick Start
-
-### Option 1: Direct Run (Release)
-Go to [Releases](#) and download the latest `PortProcessManager.Setup.msi` for installation.
-
-### Option 2: Build from Source
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/YourUsername/PortProcessManager.git
-   ```
-2. Open `PortProcessManager.sln` using Visual Studio 2022.
-3. Restore NuGet packages and build/run.
-
 ## ⚠️ Notes
 
 1. **Permissions**:
